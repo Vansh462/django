@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Up - SignmeUp{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                Create Your Account
+            </div>
+            <div class="card-body p-4">
+                <form method="POST" enctype="multipart/form-data" id="signupForm">
+                    {% csrf_token %}
+
+                    <!-- User Type Selection -->
+                    <div class="mb-3">
+                        <label for="userType" class="form-label">I am a:</label>
+                        <select class="form-control" id="userType" name="user_type" required>
+                            <option value="">-- Select User Type --</option>
+                            <option value="patient" {% if user_type == 'patient' %}selected{% endif %}>Patient</option>
+                            <option value="doctor" {% if user_type == 'doctor' %}selected{% endif %}>Doctor</option>
+                        </select>
+                        {% if form.user_type.errors %}
+                            <div class="text-danger">{{ form.user_type.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- First Name -->
+                    <div class="mb-3">
+                        <label for="firstName" class="form-label">First Name *</label>
+                        <input type="text" class="form-control" id="firstName" name="first_name" required>
+                        {% if form.first_name.errors %}
+                            <div class="text-danger">{{ form.first_name.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Last Name -->
+                    <div class="mb-3">
+                        <label for="lastName" class="form-label">Last Name *</label>
+                        <input type="text" class="form-control" id="lastName" name="last_name" required>
+                        {% if form.last_name.errors %}
+                            <div class="text-danger">{{ form.last_name.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Username -->
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username *</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                        {% if form.username.errors %}
+                            <div class="text-danger">{{ form.username.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Email -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address *</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                        {% if form.email.errors %}
+                            <div class="text-danger">{{ form.email.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Profile Picture -->
+                    <div class="mb-3">
+                        <label for="profilePicture" class="form-label">Profile Picture</label>
+                        <input type="file" class="form-control" id="profilePicture" name="profile_picture" accept="image/*">
+                        {% if form.profile_picture.errors %}
+                            <div class="text-danger">{{ form.profile_picture.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Address Line 1 -->
+                    <div class="mb-3">
+                        <label for="addressLine1" class="form-label">Address (Line 1) *</label>
+                        <input type="text" class="form-control" id="addressLine1" name="address_line1" required>
+                        {% if form.address_line1.errors %}
+                            <div class="text-danger">{{ form.address_line1.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- City -->
+                    <div class="mb-3">
+                        <label for="city" class="form-label">City *</label>
+                        <input type="text" class="form-control" id="city" name="city" required>
+                        {% if form.city.errors %}
+                            <div class="text-danger">{{ form.city.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- State -->
+                    <div class="mb-3">
+                        <label for="state" class="form-label">State *</label>
+                        <input type="text" class="form-control" id="state" name="state" required>
+                        {% if form.state.errors %}
+                            <div class="text-danger">{{ form.state.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Pincode -->
+                    <div class="mb-3">
+                        <label for="pincode" class="form-label">Pincode *</label>
+                        <input type="text" class="form-control" id="pincode" name="pincode" required>
+                        {% if form.pincode.errors %}
+                            <div class="text-danger">{{ form.pincode.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password *</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                        {% if form.password.errors %}
+                            <div class="text-danger">{{ form.password.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Confirm Password *</label>
+                        <input type="password" class="form-control" id="confirmPassword" name="confirm_password" required>
+                        <small id="passwordMatch" class="form-text"></small>
+                        {% if form.confirm_password.errors %}
+                            <div class="text-danger">{{ form.confirm_password.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">Create Account</button>
+                    </div>
+
+                    <!-- Login Link -->
+                    <div class="text-center mt-3">
+                        <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+    // Real-time password match validation
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const passwordMatch = document.getElementById('passwordMatch');
+
+    function checkPasswordMatch() {
+        if (confirmPasswordInput.value === '') {
+            passwordMatch.textContent = '';
+            passwordMatch.className = 'form-text';
+        } else if (passwordInput.value === confirmPasswordInput.value) {
+            passwordMatch.textContent = '✓ Passwords match';
+            passwordMatch.className = 'form-text text-success';
+        } else {
+            passwordMatch.textContent = '✗ Passwords do not match';
+            passwordMatch.className = 'form-text text-danger';
+        }
+    }
+
+    confirmPasswordInput.addEventListener('input', checkPasswordMatch);
+    passwordInput.addEventListener('input', checkPasswordMatch);
+
+    // Form submission validation
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+        if (passwordInput.value !== confirmPasswordInput.value) {
+            e.preventDefault();
+            alert('Passwords do not match!');
+        }
+    });
+</script>
+{% endblock %}
+{% endblock %}
+

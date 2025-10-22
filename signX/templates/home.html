@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - SignmeUp{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                Welcome to SignmeUp
+            </div>
+            <div class="card-body text-center p-5">
+                <h2 class="mb-4">🏥 Multi-User Authentication System</h2>
+                <p class="lead mb-4">
+                    A secure platform for Patients and Doctors to sign up, log in, and access their personalized dashboards.
+                </p>
+
+                <div class="row mt-5">
+                    <div class="col-md-6 mb-3">
+                        <div class="card border-primary">
+                            <div class="card-body">
+                                <h5 class="card-title">👨‍⚕️ For Doctors</h5>
+                                <p class="card-text">Create your professional profile and manage your practice.</p>
+                                <a href="{% url 'signup' %}?user_type=doctor" class="btn btn-primary">Sign Up as Doctor</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="card border-success">
+                            <div class="card-body">
+                                <h5 class="card-title">👤 For Patients</h5>
+                                <p class="card-text">Create your account and access healthcare services.</p>
+                                <a href="{% url 'signup' %}?user_type=patient" class="btn btn-success">Sign Up as Patient</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-5">
+
+                <h4 class="mb-4">Already have an account?</h4>
+                <div class="text-center mt-4">
+                    <a href="{% url 'login' %}" class="btn btn-lg btn-success" style="min-width: 200px;">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %}Patient Dashboard - SignmeUp{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                Patient Dashboard
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!-- Profile Picture -->
+                    <div class="col-md-3 text-center">
+                        {% if patient.profile_picture %}
+                            <img src="{{ patient.profile_picture.url }}" alt="Profile Picture" class="img-fluid rounded-circle" style="max-width: 200px; border: 3px solid #667eea;">
+                        {% else %}
+                            <div class="bg-light rounded-circle d-flex align-items-center justify-content-center" style="width: 200px; height: 200px; margin: 0 auto; border: 3px solid #667eea;">
+                                <span class="text-muted">No Profile Picture</span>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Profile Information -->
+                    <div class="col-md-9">
+                        <h3>Welcome, {{ user.first_name }} {{ user.last_name }}!</h3>
+                        <hr>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <h5>Personal Information</h5>
+                                <table class="table table-borderless">
+                                    <tr>
+                                        <td><strong>First Name:</strong></td>
+                                        <td>{{ user.first_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Last Name:</strong></td>
+                                        <td>{{ user.last_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Username:</strong></td>
+                                        <td>{{ user.username }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Email:</strong></td>
+                                        <td>{{ user.email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>User Type:</strong></td>
+                                        <td><span class="badge bg-info">Patient</span></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h5>Address Information</h5>
+                                {% if patient.address %}
+                                    <table class="table table-borderless">
+                                        <tr>
+                                            <td><strong>Address Line 1:</strong></td>
+                                            <td>{{ patient.address.line1 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>City:</strong></td>
+                                            <td>{{ patient.address.city }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>State:</strong></td>
+                                            <td>{{ patient.address.state }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Pincode:</strong></td>
+                                            <td>{{ patient.address.pincode }}</td>
+                                        </tr>
+                                    </table>
+                                {% else %}
+                                    <p class="text-muted">No address information available.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5>Account Details</h5>
+                                <table class="table table-borderless">
+                                    <tr>
+                                        <td><strong>Member Since:</strong></td>
+                                        <td>{{ patient.created_at|date:"F d, Y" }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Last Updated:</strong></td>
+                                        <td>{{ patient.updated_at|date:"F d, Y H:i" }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <!-- Action Buttons -->
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
