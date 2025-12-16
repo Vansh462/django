@@ -1,4 +1,8 @@
-# SignmeUp - Testing Guide
+# SignmeUp 
+
+A django based doctor-patient signup and dashboard.
+
+working video - https://www.loom.com/share/4888d0595785424eb8634df5a739bdf8
 
 ## Quick Start
 
